@@ -33,12 +33,12 @@ define(['util/Observable'], function(Observable) {
     /**
      * 连接
      */
-    connect:Q.noop,
+    connect: Q.noop,
 
     /**
      * 断开连接
      */
-    disconnect:Q.noop
+    disconnect: Q.noop
   });
 
   return Provider;

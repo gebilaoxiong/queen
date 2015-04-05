@@ -1,106 +1,106 @@
 define([
-	'layout/ContainerLayout',
-	'util/Template'
+  'layout/ContainerLayout',
+  'util/Template'
 ], function(ContainerLayout, Template) {
 
-	var MenuLayout = Q.Class.define(ContainerLayout, {
+  var MenuLayout = Q.Class.define(ContainerLayout, {
 
-		monitorResize: true,
+    monitorResize: true,
 
-		type: 'Menu',
+    type: 'Menu',
 
-		setHost: function(host) {
-			this.monitorResize = !host.floating;
+    setHost: function(host) {
+      this.monitorResize = !host.floating;
 
-			host.bind('autosize', this.doAutoSize, this);
+      host.bind('autosize', this.doAutoSize, this);
 
-			this.callParent(arguments);
-		},
+      this.callParent(arguments);
+    },
 
-		renderItem: function(cmp, position, target) {
-			
-			if (!this.itemTpl) {
-				this.itemTpl = MenuLayout.prototype.itemTpl = new Template([
-					'<li id="<%=itemId%>" class="<%=itemCls%>">',
-					'<% if(needsIcon){%>',
-					'<img alt="<%=altText%>" src="<%=icon%>" class="<%=iconCls%>"/>',
-					'<%}%>',
-					'</li>'
-				]);
-			}
+    renderItem: function(cmp, position, target) {
 
-			if (cmp && !cmp.rendered) {
+      if (!this.itemTpl) {
+        this.itemTpl = MenuLayout.prototype.itemTpl = new Template([
+          '<li id="<%=itemId%>" class="<%=itemCls%>">',
+          '<% if(needsIcon){%>',
+          '<img alt="<%=altText%>" src="<%=icon%>" class="<%=iconCls%>"/>',
+          '<%}%>',
+          '</li>'
+        ]);
+      }
 
-				if (Q.isNumber(position)) {
-					position = target.dom.childNodes[position];
-				}
+      if (cmp && !cmp.rendered) {
 
-				var div = document.createElement('div'),
-					tempArgs = this.getItemArgs(cmp);
+        if (Q.isNumber(position)) {
+          position = target.dom.childNodes[position];
+        }
 
-				cmp.positionEl = Q.Element.overwrite(div, this.itemTpl.compile(tempArgs), true);
-				div = null;
+        var div = document.createElement('div'),
+          tempArgs = this.getItemArgs(cmp);
 
-				if (position) {
-					cmp.positionEl.insertBefore(position);
-				} else {
-					cmp.positionEl.appendTo(target);
-				}
+        cmp.positionEl = Q.Element.overwrite(div, this.itemTpl.compile(tempArgs), true);
+        div = null;
 
-				cmp.render(cmp.positionEl);
+        if (position) {
+          cmp.positionEl.insertBefore(position);
+        } else {
+          cmp.positionEl.appendTo(target);
+        }
 
-				cmp.positionEl.dom.menuItemId = cmp.getItemId();
+        cmp.render(cmp.positionEl);
 
-				if (!tempArgs.isMenuItem && tempArgs.needsIcon) {
-					cmp.positionEl.addClass('x-menu-list-item-indent');
-				}
+        cmp.positionEl.dom.menuItemId = cmp.getItemId();
 
-				this.configureItem(cmp);
+        if (!tempArgs.isMenuItem && tempArgs.needsIcon) {
+          cmp.positionEl.addClass('x-menu-list-item-indent');
+        }
 
-			} else if (cmp && !this.isValidParent(cmp, target)) {
-				if (Q.isNumber(position)) {
-					position = target.dom.childNodes[position];
-				}
+        this.configureItem(cmp);
 
-				target.dom.insertBefore(cmp.getActionEl().dom, position || null);
-			}
-		},
+      } else if (cmp && !this.isValidParent(cmp, target)) {
+        if (Q.isNumber(position)) {
+          position = target.dom.childNodes[position];
+        }
 
-		getItemArgs: function(c) {
-			var isMenuItem = c.isXType('MenuItem'),
-				canHaveIcon = !(isMenuItem || c.isXType('Separator'));
+        target.dom.insertBefore(cmp.getActionEl().dom, position || null);
+      }
+    },
 
-			return {
-				isMenuItem: isMenuItem,
-				needsIcon: canHaveIcon && (c.icon || c.iconCls),
-				icon: c.icon || Q.BLANK_IMAGE_URL,
-				iconCls: 'x-menu-item-icon ' + (c.iconCls || ''),
-				itemId: 'x-menu-el-' + c.id,
-				itemCls: 'x-menu-list-item ',
-				altText: c.altText || ''
-			};
-		},
+    getItemArgs: function(c) {
+      var isMenuItem = c.isXType('MenuItem'),
+        canHaveIcon = !(isMenuItem || c.isXType('Separator'));
 
-		isValidParent: function(c, target) {
-			return  c.el.parentUntil('li.x-menu-list-item').parentNode === (target.dom || target);
-		},
+      return {
+        isMenuItem: isMenuItem,
+        needsIcon: canHaveIcon && (c.icon || c.iconCls),
+        icon: c.icon || Q.BLANK_IMAGE_URL,
+        iconCls: 'x-menu-item-icon ' + (c.iconCls || ''),
+        itemId: 'x-menu-el-' + c.id,
+        itemCls: 'x-menu-list-item ',
+        altText: c.altText || ''
+      };
+    },
 
-		onLayout: function(ct, target) {
-			this.callParent(arguments);
-			this.doAutoSize();
-		},
+    isValidParent: function(c, target) {
+      return c.el.parentUntil('li.x-menu-list-item').parentNode === (target.dom || target);
+    },
 
-		doAutoSize: function() {
-			var host = this.host,
-				w = host.width;
+    onLayout: function(ct, target) {
+      this.callParent(arguments);
+      this.doAutoSize();
+    },
 
-			if (host.floating) {
-				if (w) {
-					host.outerWidth(false, w);
-				}
-			}
-		}
-	});
+    doAutoSize: function() {
+      var host = this.host,
+        w = host.width;
 
-	return MenuLayout;
+      if (host.floating) {
+        if (w) {
+          host.outerWidth(false, w);
+        }
+      }
+    }
+  });
+
+  return MenuLayout;
 });

@@ -1,265 +1,265 @@
 define([
-	'form/TriggerField',
-	'menu/DateMenu'
+  'form/TriggerField',
+  'menu/DateMenu'
 ], function(TriggerField, DateMenu) {
 
-	var DateField = Q.Class.define(TriggerField, {
+  var DateField = Q.Class.define(TriggerField, {
 
-		type:'DateField',
+    type: 'DateField',
 
-		format: 'YYYY/MM/dd',
+    format: 'YYYY/MM/dd',
 
-		altFormats: "YYYY/MM/dd|yy-MM-dd|YYYY-MM-dd|dd/MM|MM-dd|dd|YYYY-MM-dd|YYYY年MM月dd|YYYY年MM月dd日|MM月dd日|MM月dd|MM/dd",
+    altFormats: "YYYY/MM/dd|yy-MM-dd|YYYY-MM-dd|dd/MM|MM-dd|dd|YYYY-MM-dd|YYYY年MM月dd|YYYY年MM月dd日|MM月dd日|MM月dd|MM/dd",
 
-		disabledDaysText: "禁用",
+    disabledDaysText: "禁用",
 
-		disabledDatesText: "禁用",
+    disabledDatesText: "禁用",
 
-		minText: "该输入项的日期必须在 {0} 之后",
+    minText: "该输入项的日期必须在 {0} 之后",
 
-		maxText: "该输入项的日期必须在 {0} 之前",
+    maxText: "该输入项的日期必须在 {0} 之前",
 
-		invalidText: "{0} 是无效的日期 - 必须符合格式： {1}",
+    invalidText: "{0} 是无效的日期 - 必须符合格式： {1}",
 
-		triggerCls: 'x-form-date-trigger',
+    triggerCls: 'x-form-date-trigger',
 
-		showToday: true,
+    showToday: true,
 
-		startDay: 0,
+    startDay: 0,
 
-		autoCreate: {
-			target: "input",
-			type: "text",
-			size: "20",
-			autocomplete: "off"
-		},
+    autoCreate: {
+      target: "input",
+      type: "text",
+      size: "20",
+      autocomplete: "off"
+    },
 
-		safeParse: function(value, format) {
-			return Q.Date.parse(value, format);
-		},
+    safeParse: function(value, format) {
+      return Q.Date.parse(value, format);
+    },
 
-		configuration: function() {
-			var me = this;
+    configuration: function() {
+      var me = this;
 
-			me.callParent(arguments);
+      me.callParent(arguments);
 
-			if (Q.isString(this.minText)) {
-				this.minText = Q.String.format(this.minText);
-			}
+      if (Q.isString(this.minText)) {
+        this.minText = Q.String.format(this.minText);
+      }
 
-			if (Q.isString(this.maxValue)) {
-				this.minText = Q.String.format(this.minText);
-			}
+      if (Q.isString(this.maxValue)) {
+        this.minText = Q.String.format(this.minText);
+      }
 
-			if (Q.isString(this.invalidText)) {
-				this.invalidText = Q.String.format(this.invalidText);
-			}
+      if (Q.isString(this.invalidText)) {
+        this.invalidText = Q.String.format(this.invalidText);
+      }
 
-			if (Q.isString(me.minValue)) {
-				me.minValue = me.parseDate(me.minValue);
-			}
-			if (Q.isString(me.maxValue)) {
-				me.maxValue = me.parseDate(me.maxValue);
-			}
-			me.disabledDatesRE = null;
-			me.initDisabledDays();
-		},
+      if (Q.isString(me.minValue)) {
+        me.minValue = me.parseDate(me.minValue);
+      }
+      if (Q.isString(me.maxValue)) {
+        me.maxValue = me.parseDate(me.maxValue);
+      }
+      me.disabledDatesRE = null;
+      me.initDisabledDays();
+    },
 
-		initDisabledDays: function() {
-			var me = this;
-			if (me.disabledDates) {
-				var dd = me.disabledDates,
-					len = dd.length - 1,
-					re = "(?:";
+    initDisabledDays: function() {
+      var me = this;
+      if (me.disabledDates) {
+        var dd = me.disabledDates,
+          len = dd.length - 1,
+          re = "(?:";
 
-				Q.each(dd, function(i, d) {
-					re += Q.isDate(d) ? '^' + Q.String.escapeRegExp(d.dateFormat(me.format)) + '$' : d;
-					if (i != len) {
-						re += '|';
-					}
-				}, me);
+        Q.each(dd, function(i, d) {
+          re += Q.isDate(d) ? '^' + Q.String.escapeRegExp(d.dateFormat(me.format)) + '$' : d;
+          if (i != len) {
+            re += '|';
+          }
+        }, me);
 
-				me.disabledDatesRE = new RegExp(re + ')');
-			}
-		},
+        me.disabledDatesRE = new RegExp(re + ')');
+      }
+    },
 
-		setDisabledDates: function(dd) {
-			this.disabledDates = dd;
-			this.initDisabledDays();
+    setDisabledDates: function(dd) {
+      this.disabledDates = dd;
+      this.initDisabledDays();
 
-			if (this.menu) {
-				this.menu.picker.setDisabledDates(this.disabledDatesRE);
-			}
-		},
+      if (this.menu) {
+        this.menu.picker.setDisabledDates(this.disabledDatesRE);
+      }
+    },
 
-		setDisabledDays: function(dd) {
-			this.disabledDays = dd;
-			if (this.menu) {
-				this.menu.picker.setDisabledDays(dd);
-			}
-		},
+    setDisabledDays: function(dd) {
+      this.disabledDays = dd;
+      if (this.menu) {
+        this.menu.picker.setDisabledDays(dd);
+      }
+    },
 
-		setMinValue: function(dt) {
-			this.minValue = Q.isString(dt) ? this.parseDate(dt) : dt;
-			if (this.menu) {
-				this.menu.picker.setMinDate(this.minValue);
-			}
-		},
+    setMinValue: function(dt) {
+      this.minValue = Q.isString(dt) ? this.parseDate(dt) : dt;
+      if (this.menu) {
+        this.menu.picker.setMinDate(this.minValue);
+      }
+    },
 
-		setMaxValue: function(dt) {
-			this.maxValue = Q.isString(dt) ? this.parseDate(dt) : dt;
-			if (this.menu) {
-				this.menu.picker.setMaxDate(this.maxValue);
-			}
-		},
+    setMaxValue: function(dt) {
+      this.maxValue = Q.isString(dt) ? this.parseDate(dt) : dt;
+      if (this.menu) {
+        this.menu.picker.setMaxDate(this.maxValue);
+      }
+    },
 
-		getErrors: function(value) {
-			var me = this,
-				errors = me.callParent(arguments);
+    getErrors: function(value) {
+      var me = this,
+        errors = me.callParent(arguments);
 
-			value = me.formatDate(value || me.processValue(me.getRawValue()));
+      value = me.formatDate(value || me.processValue(me.getRawValue()));
 
-			if (value.length < 1) { // if it's blank and textfield didn't flag it then it's valid
-				return errors;
-			}
+      if (value.length < 1) { // if it's blank and textfield didn't flag it then it's valid
+        return errors;
+      }
 
-			var svalue = value;
-			value = me.parseDate(value);
-			if (!value) {
-				errors.push(me.invalidText(svalue, me.format));
-				return errors;
-			}
+      var svalue = value;
+      value = me.parseDate(value);
+      if (!value) {
+        errors.push(me.invalidText(svalue, me.format));
+        return errors;
+      }
 
-			var time = value.valueOf();
+      var time = value.valueOf();
 
-			if (me.minValue && time < Q.Date.clearTime(me.minValue).valueOf()) {
-				errors.push(me.minText(me.formatDate(me.minValue)));
-			}
+      if (me.minValue && time < Q.Date.clearTime(me.minValue).valueOf()) {
+        errors.push(me.minText(me.formatDate(me.minValue)));
+      }
 
-			if (me.maxValue && time > Q.Date.clearTime(me.maxValue).valueOf()) {
-				errors.push(me.maxText(me.formatDate(me.maxValue)));
-			}
+      if (me.maxValue && time > Q.Date.clearTime(me.maxValue).valueOf()) {
+        errors.push(me.maxText(me.formatDate(me.maxValue)));
+      }
 
-			if (me.disabledDays) {
-				var day = value.getDay();
+      if (me.disabledDays) {
+        var day = value.getDay();
 
-				for (var i = 0; i < me.disabledDays.length; i++) {
-					if (day === me.disabledDays[i]) {
-						errors.push(me.disabledDaysText);
-						break;
-					}
-				}
-			}
+        for (var i = 0; i < me.disabledDays.length; i++) {
+          if (day === me.disabledDays[i]) {
+            errors.push(me.disabledDaysText);
+            break;
+          }
+        }
+      }
 
-			var fvalue = this.formatDate(value);
-			if (this.disabledDatesRE && this.disabledDatesRE.test(fvalue)) {
-				errors.push(String.format(this.disabledDatesText)(fvalue));
-			}
+      var fvalue = this.formatDate(value);
+      if (this.disabledDatesRE && this.disabledDatesRE.test(fvalue)) {
+        errors.push(String.format(this.disabledDatesText)(fvalue));
+      }
 
-			return errors;
-		},
+      return errors;
+    },
 
-		validateBlur: function() {
-			return !this.menu || !this.menu.isVisible();
-		},
+    validateBlur: function() {
+      return !this.menu || !this.menu.isVisible();
+    },
 
-		getValue: function() {
-			return this.parseDate(this.callParent(arguments)) || "";
-		},
+    getValue: function() {
+      return this.parseDate(this.callParent(arguments)) || "";
+    },
 
-		setValue: function(date) {
-			return this.callParent('setValue', [this.formatDate(this.parseDate(date))]);
-		},
+    setValue: function(date) {
+      return this.callParent('setValue', [this.formatDate(this.parseDate(date))]);
+    },
 
-		parseDate: function(value) {
-			if (!value || Q.isDate(value)) {
-				return value;
-			}
+    parseDate: function(value) {
+      if (!value || Q.isDate(value)) {
+        return value;
+      }
 
-			var me = this,
-				v = me.safeParse(value, me.format),
-				altFormats = me.altFormats,
-				altFormatsArray = me.altFormatsArray;
-			
-			if (!v && altFormats) {
-				altFormatsArray = altFormatsArray || altFormats.split("|");
+      var me = this,
+        v = me.safeParse(value, me.format),
+        altFormats = me.altFormats,
+        altFormatsArray = me.altFormatsArray;
 
-				for (var i = 0, len = altFormatsArray.length; i < len && !v; i++) {
-					v = me.safeParse(value, altFormatsArray[i]);
-				}
-			}
-			return v;
-		},
+      if (!v && altFormats) {
+        altFormatsArray = altFormatsArray || altFormats.split("|");
 
-		onDestroy: function() {
-			this.invalidText = this.minValue = this.maxValue = null;
+        for (var i = 0, len = altFormatsArray.length; i < len && !v; i++) {
+          v = me.safeParse(value, altFormatsArray[i]);
+        }
+      }
+      return v;
+    },
 
-			if (this.menu) {
-				this.menu.destroy();
-			}
-			this.callParent(arguments);
-		},
+    onDestroy: function() {
+      this.invalidText = this.minValue = this.maxValue = null;
 
-		formatDate: function(date) {
-			return Q.isDate(date) ? Q.Date.format(date, this.format) : date;
-		},
+      if (this.menu) {
+        this.menu.destroy();
+      }
+      this.callParent(arguments);
+    },
 
-		onTriggerClick: function() {
-			if (this.disabled) {
-				return;
-			}
-			if (this.menu == null) {
-				this.menu = new DateMenu({
-					hideOnClick: false,
-					focusOnSelect: false
-				});
-			}
+    formatDate: function(date) {
+      return Q.isDate(date) ? Q.Date.format(date, this.format) : date;
+    },
 
-			this.onFocus();
+    onTriggerClick: function() {
+      if (this.disabled) {
+        return;
+      }
+      if (this.menu == null) {
+        this.menu = new DateMenu({
+          hideOnClick: false,
+          focusOnSelect: false
+        });
+      }
 
-			Q.extend(this.menu.picker, {
-				minDate: this.minValue,
-				maxDate: this.maxValue,
-				disabledDatesRE: this.disabledDatesRE,
-				disabledDatesText: this.disabledDatesText,
-				disabledDays: this.disabledDays,
-				disabledDaysText: this.disabledDaysText,
-				format: this.format,
-				showToday: this.showToday,
-				startDay: this.startDay
-			});
+      this.onFocus();
 
-			this.menu.picker.setValue(this.getValue() || new Date());
-			this.menu.show(this.wrap, "tl-bl?");
-			this.menuEvents('bind');
-		},
+      Q.extend(this.menu.picker, {
+        minDate: this.minValue,
+        maxDate: this.maxValue,
+        disabledDatesRE: this.disabledDatesRE,
+        disabledDatesText: this.disabledDatesText,
+        disabledDays: this.disabledDays,
+        disabledDaysText: this.disabledDaysText,
+        format: this.format,
+        showToday: this.showToday,
+        startDay: this.startDay
+      });
 
-		menuEvents: function(method) {
-			this.menu[method]('select', this.onSelect, this);
-			this.menu[method]('hide', this.onMenuHide, this);
-			this.menu[method]('show', this.onFocus, this);
-		},
+      this.menu.picker.setValue(this.getValue() || new Date());
+      this.menu.show(this.wrap, "tl-bl?");
+      this.menuEvents('bind');
+    },
 
-		onSelect: function(e, m, dateTime) {
-			this.setValue(dateTime);
-			this.fire('select', this, dateTime);
-			this.menu.hide();
-		},
+    menuEvents: function(method) {
+      this.menu[method]('select', this.onSelect, this);
+      this.menu[method]('hide', this.onMenuHide, this);
+      this.menu[method]('show', this.onFocus, this);
+    },
 
-		onMenuHide: function() {
-			this.focus(false, 60);
-			this.menuEvents('unbind');
-		},
+    onSelect: function(e, m, dateTime) {
+      this.setValue(dateTime);
+      this.fire('select', this, dateTime);
+      this.menu.hide();
+    },
 
-		// private
-		beforeBlur: function() {
-			var v = this.parseDate(this.getRawValue());
-			if (v) {
-				this.setValue(v);
-			}
-		}
+    onMenuHide: function() {
+      this.focus(false, 60);
+      this.menuEvents('unbind');
+    },
 
-	});
+    // private
+    beforeBlur: function() {
+      var v = this.parseDate(this.getRawValue());
+      if (v) {
+        this.setValue(v);
+      }
+    }
 
-	return DateField;
+  });
+
+  return DateField;
 });

@@ -299,7 +299,7 @@ define([
         if (cmp != me && fn.call(context || me, cmp, me) === true) {
           ret.push(cmp);
         }
-      },context);
+      }, context);
     },
 
     findByType: function(xtype) {

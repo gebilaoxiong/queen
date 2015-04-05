@@ -6,42 +6,42 @@
  */
 define(function() {
 
-	var RowNumberer, defaultConfig;
+  var RowNumberer, defaultConfig;
 
-	defaultConfig = {
-		/*标题*/
-		header: '序号',
+  defaultConfig = {
+    /*标题*/
+    header: '序号',
 
-		width: 60,
+    width: 60,
 
-		sortable: false,
-		// private
-		fixed: true,
-		hideable: false,
-		menuDisabled: true,
-		dataIndex: '',
-		id: 'numberer',
-		rowspan: undefined,
+    sortable: false,
+    // private
+    fixed: true,
+    hideable: false,
+    menuDisabled: true,
+    dataIndex: '',
+    id: 'numberer',
+    rowspan: undefined,
 
-		// private
-		renderer: function(v, p, record, rowIndex) {
-			if (this.rowspan) {
-				p.cellAttr = 'rowspan="' + this.rowspan + '"';
-			}
-			return rowIndex + 1;
-		}
-	};
+    // private
+    renderer: function(v, p, record, rowIndex) {
+      if (this.rowspan) {
+        p.cellAttr = 'rowspan="' + this.rowspan + '"';
+      }
+      return rowIndex + 1;
+    }
+  };
 
-	RowNumberer = Q.Class.define({
+  RowNumberer = Q.Class.define({
 
-		init: function(config) {
-			Q.extend(this, defaultConfig, config);
+    init: function(config) {
+      Q.extend(this, defaultConfig, config);
 
-			if (this.rowspan) {
-				this.renderer = Q.proxy(this.renderer, this);
-			}
-		}
-	});
+      if (this.rowspan) {
+        this.renderer = Q.proxy(this.renderer, this);
+      }
+    }
+  });
 
-	return RowNumberer;
+  return RowNumberer;
 });

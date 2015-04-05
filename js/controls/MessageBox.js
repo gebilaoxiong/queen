@@ -57,11 +57,11 @@ define([
 
   line = '-',
 
-  //默认的按钮
-  defaultBtns = {
-    alert: ['ok'],
-    confirm: ['ok', 'cancel']
-  };
+    //默认的按钮
+    defaultBtns = {
+      alert: ['ok'],
+      confirm: ['ok', 'cancel']
+    };
 
   MessageBox = Q.Class.define(BoxComponent, {
 

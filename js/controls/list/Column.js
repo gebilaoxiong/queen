@@ -5,40 +5,40 @@
  * @description
  */
 define(['util/Template'], function(Template) {
-	var Column;
+  var Column;
 
-	Column = Q.Class.define(Q.Abstract, {
+  Column = Q.Class.define(Q.Abstract, {
 
-		isColumn: true,
+    isColumn: true,
 
-		/*文本方向*/
-		align: 'left',
+    /*文本方向*/
+    align: 'left',
 
-		/*列标题*/
-		header: '',
+    /*列标题*/
+    header: '',
 
-		/*列宽度*/
-		width: null,
+    /*列宽度*/
+    width: null,
 
-		/*列className*/
-		cls: '',
+    /*列className*/
+    cls: '',
 
-		/*
+    /*
 		
 		dataIndex 必须。 Store的 Record 定义中定义的字段名，用来渲染列值。 
 
 		 */
 
-		init: function(config) {
-			if (!config.tpl) { //模板
-				config.tpl = new Template('<%=' + config.dataIndex + '%>')
-			} else if (Q.isString(config.tpl)) { //模板字符串
-				config.tpl = new Template(config.tpl);
-			}
+    init: function(config) {
+      if (!config.tpl) { //模板
+        config.tpl = new Template('<%=' + config.dataIndex + '%>')
+      } else if (Q.isString(config.tpl)) { //模板字符串
+        config.tpl = new Template(config.tpl);
+      }
 
-			Q.extend(this, config);
-		}
-	});
+      Q.extend(this, config);
+    }
+  });
 
-	return Column;
+  return Column;
 })

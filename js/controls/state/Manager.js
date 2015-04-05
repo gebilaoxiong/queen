@@ -1,33 +1,33 @@
 define(['state/Provider'], function(Provider) {
 
-	var provider = new Provider();
+  var provider = new Provider();
 
-	return {
+  return {
 
-		setProvider: function(stateProvider) {
-			provider = stateProvider;
-		},
+    setProvider: function(stateProvider) {
+      provider = stateProvider;
+    },
 
-		get: function(key, defaultValue) {
-			return provider.get(key, defaultValue);
-		},
+    get: function(key, defaultValue) {
+      return provider.get(key, defaultValue);
+    },
 
-		set: function(key, value) {
-			provider.set(key, value);
-		},
+    set: function(key, value) {
+      provider.set(key, value);
+    },
 
-		clear: function(key) {
-			provider.clear(key);
-		},
-		
-		getProvider: function() {
-			return provider;
-		},
+    clear: function(key) {
+      provider.clear(key);
+    },
 
-		log:function(){
-			console.log(provider)
-		}
-	}
+    getProvider: function() {
+      return provider;
+    },
+
+    log: function() {
+      console.log(provider)
+    }
+  }
 
 
 });

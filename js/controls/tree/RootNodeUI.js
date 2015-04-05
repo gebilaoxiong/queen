@@ -6,29 +6,30 @@
  */
 define(['tree/NodeUI'], function(TreeNodeUI) {
 
-	var RootTreeNodeUI;
+  var RootTreeNodeUI;
 
-	RootTreeNodeUI = Q.Class.define(TreeNodeUI, {
+  RootTreeNodeUI = Q.Class.define(TreeNodeUI, {
 
-		type:'RootTreeNodeUI',
+    type: 'RootTreeNodeUI',
 
-		render: function() {
-			var me=this,targetNode;
-			if (!me.rendered) {
-				targetNode = me.node.ownerTree.innerCt.dom;
+    render: function() {
+      var me = this,
+        targetNode;
+      if (!me.rendered) {
+        targetNode = me.node.ownerTree.innerCt.dom;
 
-				//无法折叠 展开
-				me.node.expanded = true;
+        //无法折叠 展开
+        me.node.expanded = true;
 
-				targetNode.innerHTML = '<div class="x-tree-root-node"></div>';
-				me.wrap = me.ctNode = targetNode.firstChild;
-			}
-		},
+        targetNode.innerHTML = '<div class="x-tree-root-node"></div>';
+        me.wrap = me.ctNode = targetNode.firstChild;
+      }
+    },
 
-		collapse: Q.noop,
+    collapse: Q.noop,
 
-		expand: Q.noop
-	});
+    expand: Q.noop
+  });
 
-	return RootTreeNodeUI;
+  return RootTreeNodeUI;
 });

@@ -1,42 +1,42 @@
 define(function() {
 
-	/*错误类封装*/
-	var Exception = function(message) {
-		this.init(message);
-	};
+  /*错误类封装*/
+  var Exception = function(message) {
+    this.init(message);
+  };
 
-	Exception.prototype = new Error();
+  Exception.prototype = new Error();
 
-	Q.extend(Exception.prototype, Q.Abstract.prototype, {
+  Q.extend(Exception.prototype, Q.Abstract.prototype, {
 
-		init:function(message){
-			this.type = this.type;
+    init: function(message) {
+      this.type = this.type;
 
-			this.message = this.lang[message] ? this.lang[message] : message;
-		},
+      this.message = this.lang[message] ? this.lang[message] : message;
+    },
 
-		lang: {},
+    lang: {},
 
-		type: 'Exception',
+    type: 'Exception',
 
-		name: 'Error',
+    name: 'Error',
 
-		getName: function() {
-			return this.name;
-		},
+    getName: function() {
+      return this.name;
+    },
 
-		getMessage: function() {
-			return this.message;
-		},
+    getMessage: function() {
+      return this.message;
+    },
 
-		toJson: function() {
-			return Q.JSON.stringify(this);
-		},
+    toJson: function() {
+      return Q.JSON.stringify(this);
+    },
 
-		log: function() {
-			GLOBAL.log.error(this);
-		}
-	})
+    log: function() {
+      GLOBAL.log.error(this);
+    }
+  })
 
-	return Exception;
+  return Exception;
 })

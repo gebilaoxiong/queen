@@ -1,155 +1,155 @@
 define(['form/TextField'], function(TextField) {
 
-	var NumberField = Q.Class.define(TextField, {
+  var NumberField = Q.Class.define(TextField, {
 
-		fieldClass: "x-form-field x-form-num-field",
+    fieldClass: "x-form-field x-form-num-field",
 
-		//是否允许小数
-		allowDecimals: true,
+    //是否允许小数
+    allowDecimals: true,
 
-		//小数点分隔符
-		decimalSeparator: ".",
+    //小数点分隔符
+    decimalSeparator: ".",
 
-		//小数位数
-		decimalPrecision: 2,
+    //小数位数
+    decimalPrecision: 2,
 
-		//是否允许符号
-		allowNegative: true,
+    //是否允许符号
+    allowNegative: true,
 
-		minValue: Number.NEGATIVE_INFINITY,
+    minValue: Number.NEGATIVE_INFINITY,
 
-		maxValue: Number.MAX_VALUE,
+    maxValue: Number.MAX_VALUE,
 
-		minText: "该输入项的最小值是 {0}",
+    minText: "该输入项的最小值是 {0}",
 
-		maxText: "该输入项的最大值是 {0}",
+    maxText: "该输入项的最大值是 {0}",
 
-		nanText: "{0} 不是有效数值",
+    nanText: "{0} 不是有效数值",
 
-		//合法数字的基本字符集(默认为'0123456789'). 
-		baseChars: "0123456789",
-
-
-		autoStripChars: false,
-
-		configuration: function() {
-			var allowed = String(this.baseChars);
-
-			//允许小数将小数分隔符添加到允许的字符集
-			if (this.allowDecimals) {
-				allowed += this.decimalSeparator;
-			}
-
-			//符号
-			if (this.allowNegative) {
-				allowed += '-';
-			}
-
-			allowed = Q.String.escapeRegExp(allowed);
-			this.maskRe = new RegExp('[' + allowed + ']');
-
-			if (this.autoStripChars) {
-				this.stripCharsRe = new RegExp('[^' + allowed + ']', 'gi');
-			}
+    //合法数字的基本字符集(默认为'0123456789'). 
+    baseChars: "0123456789",
 
 
-			if (this.minText && Q.isString(this.minText)) {
-				this.minText = Q.String.format(this.minText);
-			}
+    autoStripChars: false,
 
-			if (this.maxText && Q.isString(this.maxText)) {
-				this.maxText = Q.String.format(this.maxText);
-			}
+    configuration: function() {
+      var allowed = String(this.baseChars);
 
-			if (this.nanText && Q.isString(this.nanText)) {
-				this.nanText = Q.String.format(this.nanText);
-			}
+      //允许小数将小数分隔符添加到允许的字符集
+      if (this.allowDecimals) {
+        allowed += this.decimalSeparator;
+      }
 
-			this.callParent(arguments);
-		},
+      //符号
+      if (this.allowNegative) {
+        allowed += '-';
+      }
 
-		getErrors: function(value) {
-			var errors = this.callParent(arguments),
+      allowed = Q.String.escapeRegExp(allowed);
+      this.maskRe = new RegExp('[' + allowed + ']');
 
-				value = value != undefined ?
-					value : this.processValue(this.getRawValue()),
+      if (this.autoStripChars) {
+        this.stripCharsRe = new RegExp('[^' + allowed + ']', 'gi');
+      }
 
-				num;
 
-			//将小数分隔符替换为小数点
-			value = String(value).replace(this.decimalSeparator, ".");
+      if (this.minText && Q.isString(this.minText)) {
+        this.minText = Q.String.format(this.minText);
+      }
 
-			if (isNaN(value)) {
-				errors.push(this.nanText(value));
-			}
+      if (this.maxText && Q.isString(this.maxText)) {
+        this.maxText = Q.String.format(this.maxText);
+      }
 
-			num = this.parseValue(value);
+      if (this.nanText && Q.isString(this.nanText)) {
+        this.nanText = Q.String.format(this.nanText);
+      }
 
-			// 范围判断
-			if (num < this.minValue) {
-				errors.push(this.minText(this.minValue));
-			}
+      this.callParent(arguments);
+    },
 
-			if (num > this.maxValue) {
-				errors.push(this.maxText(this.maxValue));
-			}
+    getErrors: function(value) {
+      var errors = this.callParent(arguments),
 
-			return errors;
-		},
+        value = value != undefined ?
+        value : this.processValue(this.getRawValue()),
 
-		getValue: function() {
-			//获取字符串-》数字-》修复
-			return this.fixPrecision(this.parseValue(this.callParent(arguments)));
-		},
+        num;
 
-		setValue: function(v) {
-			v = Q.isNumber(v) ? v : parseFloat(String(v).replace(this.decimalSeparator, "."));
-			v = this.fixPrecision(v);
-			v = isNaN(v) ? '' : String(v).replace(".", this.decimalSeparator);
+      //将小数分隔符替换为小数点
+      value = String(value).replace(this.decimalSeparator, ".");
 
-			return this.callParent(arguments);
-		},
+      if (isNaN(value)) {
+        errors.push(this.nanText(value));
+      }
 
-		setMinValue: function(value) {
-			this.minValue = Q.Number.tryParse(value, Number.NEGATIVE_INFINITY);
-		},
+      num = this.parseValue(value);
 
-		setMaxValue: function(value) {
-			this.maxValue = Q.Number.tryParse(value, Number.MAX_VALUE);
-		},
+      // 范围判断
+      if (num < this.minValue) {
+        errors.push(this.minText(this.minValue));
+      }
 
-		// private
-		parseValue: function(value) {
-			value = parseFloat(String(value).replace(this.decimalSeparator, "."));
-			return isNaN(value) ? '' : value;
-		},
+      if (num > this.maxValue) {
+        errors.push(this.maxText(this.maxValue));
+      }
 
-		fixPrecision: function(value) {
-			var nan = isNaN(value);
+      return errors;
+    },
 
-			//不需要修复（不允许小数|小数位数小于0|非数字|0）
-			if (!this.allowDecimals || this.decimalPrecision <= 0 || nan || !value) {
-				return nan ? '' : value;
-			}
+    getValue: function() {
+      //获取字符串-》数字-》修复
+      return this.fixPrecision(this.parseValue(this.callParent(arguments)));
+    },
 
-			return parseFloat(parseFloat(value).toFixed(this.decimalPrecision));
-		},
+    setValue: function(v) {
+      v = Q.isNumber(v) ? v : parseFloat(String(v).replace(this.decimalSeparator, "."));
+      v = this.fixPrecision(v);
+      v = isNaN(v) ? '' : String(v).replace(".", this.decimalSeparator);
 
-		beforeBlur: function() {
-			var v = this.parseValue(this.getRawValue());
+      return this.callParent(arguments);
+    },
 
-			if (Q.isDefined(v)) {
-				this.setValue(v);
-			}
-		},
+    setMinValue: function(value) {
+      this.minValue = Q.Number.tryParse(value, Number.NEGATIVE_INFINITY);
+    },
 
-		beforeDestroy:function(){
-			//解除闭包函数引用
-			this.nanText=this.minText=this.maxText=null;
-			
-			this.callParent(arguments);
-		}
-	});
+    setMaxValue: function(value) {
+      this.maxValue = Q.Number.tryParse(value, Number.MAX_VALUE);
+    },
 
-	return NumberField;
+    // private
+    parseValue: function(value) {
+      value = parseFloat(String(value).replace(this.decimalSeparator, "."));
+      return isNaN(value) ? '' : value;
+    },
+
+    fixPrecision: function(value) {
+      var nan = isNaN(value);
+
+      //不需要修复（不允许小数|小数位数小于0|非数字|0）
+      if (!this.allowDecimals || this.decimalPrecision <= 0 || nan || !value) {
+        return nan ? '' : value;
+      }
+
+      return parseFloat(parseFloat(value).toFixed(this.decimalPrecision));
+    },
+
+    beforeBlur: function() {
+      var v = this.parseValue(this.getRawValue());
+
+      if (Q.isDefined(v)) {
+        this.setValue(v);
+      }
+    },
+
+    beforeDestroy: function() {
+      //解除闭包函数引用
+      this.nanText = this.minText = this.maxText = null;
+
+      this.callParent(arguments);
+    }
+  });
+
+  return NumberField;
 });

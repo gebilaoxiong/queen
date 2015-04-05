@@ -1,25 +1,25 @@
 define(function() {
 
-	var Response = function(params, response) {
-		Q.applyIf(this, params, {
-			raw: response
-		});
-	}
+  var Response = function(params, response) {
+    Q.applyIf(this, params, {
+      raw: response
+    });
+  }
 
-	Response.prototype = {
+  Response.prototype = {
 
-		action: undefined,
+    action: undefined,
 
-		success: undefined,
+    success: undefined,
 
-		message: undefined,
+    message: undefined,
 
-		data: undefined,
+    data: undefined,
 
-		raw: undefined,
+    raw: undefined,
 
-		records: undefined
-	};
+    records: undefined
+  };
 
-	return Response;
+  return Response;
 });

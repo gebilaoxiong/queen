@@ -1,62 +1,62 @@
 define(['layout/FitLayout'], function(fitLayout) {
 
-	var CardLayout = Q.Class.define(fitLayout, {
+  var CardLayout = Q.Class.define(fitLayout, {
 
-		type: 'Card',
+    type: 'Card',
 
-		/*是否延迟绘制子控件*/
-		deferredRender: false,
+    /*是否延迟绘制子控件*/
+    deferredRender: false,
 
-		/*acitiveItem发生变化的时候 是否对调用下一个activeItem的dolayout*/
-		layoutOnCardChange: true,
+    /*acitiveItem发生变化的时候 是否对调用下一个activeItem的dolayout*/
+    layoutOnCardChange: true,
 
-		setActiveItem: function(item) {
-			var me=this,
-				activeItem = me.activeItem,
-				host = me.host,
-				layout;
-			
-			item = host.getCmp(item);
+    setActiveItem: function(item) {
+      var me = this,
+        activeItem = me.activeItem,
+        host = me.host,
+        layout;
 
-			//确保两个不为同一对象
-			if (item && activeItem != item) {
+      item = host.getCmp(item);
 
-				//隐藏上次激活项
-				if (activeItem) {
-					activeItem.hide();
-					if(activeItem.hidden!==true){
-						return false;
-					}
-					activeItem.fire('deactivate', activeItem);
-				}
-				
-				layout = item.doLayout && (me.layoutOnCardChange || !item.rendered);
+      //确保两个不为同一对象
+      if (item && activeItem != item) {
 
-				me.activeItem = item;
+        //隐藏上次激活项
+        if (activeItem) {
+          activeItem.hide();
+          if (activeItem.hidden !== true) {
+            return false;
+          }
+          activeItem.fire('deactivate', activeItem);
+        }
 
-				//解除延迟布局
-				delete item.deferLayout;
+        layout = item.doLayout && (me.layoutOnCardChange || !item.rendered);
 
-				item.show();
+        me.activeItem = item;
 
-				me.layout();
+        //解除延迟布局
+        delete item.deferLayout;
 
-				if (layout) {
-					item.doLayout();
-				}
+        item.show();
 
-				item.fire('activate', item);
-			}
-		},
+        me.layout();
 
-		renderAll: function(host, target) {
-			if (this.deferredRender) {
-				this.renderItem(this.activeItem, undefined, target);
-			} else {
-				this.callParent(arguments);
-			}
-		}
-	});
+        if (layout) {
+          item.doLayout();
+        }
 
-	return CardLayout;
+        item.fire('activate', item);
+      }
+    },
+
+    renderAll: function(host, target) {
+      if (this.deferredRender) {
+        this.renderItem(this.activeItem, undefined, target);
+      } else {
+        this.callParent(arguments);
+      }
+    }
+  });
+
+  return CardLayout;
 })

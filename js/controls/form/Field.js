@@ -17,7 +17,7 @@ define(['controls/BoxComponent'], function(boxCmp) {
 
       toSubmit: true, //提交form时是否提交本控件
 
-      validateOnBlur:true,//是否在失去焦点的时候验证控件
+      validateOnBlur: true, //是否在失去焦点的时候验证控件
 
       invalidCls: 'x-form-invalid',
 
@@ -133,22 +133,22 @@ define(['controls/BoxComponent'], function(boxCmp) {
 
         this.beforeBlur();
 
-        if(this.focusCls){
+        if (this.focusCls) {
           this.el.removeClass(this.focusCls);
         }
 
-        this.hasFocus=false;
+        this.hasFocus = false;
 
-        if(this.validEvent!==false&&(this.validateOnBlur||this.validEvent=='blur')){
+        if (this.validEvent !== false && (this.validateOnBlur || this.validEvent == 'blur')) {
           this.valid();
         }
 
-        value=this.getValue();
+        value = this.getValue();
 
-        if(String(value)!==String(this.startValue)){
-          this.fire('change',this,value,this.startValue)
+        if (String(value) !== String(this.startValue)) {
+          this.fire('change', this, value, this.startValue)
         }
-        this.fire('blur',this);
+        this.fire('blur', this);
         this.postBlur();
       },
 
@@ -407,7 +407,7 @@ define(['controls/BoxComponent'], function(boxCmp) {
         },
         clear: function(field) {
           var el = field.el;
-          (field.wrap ||el).removeClass(field.invalidCls);
+          (field.wrap || el).removeClass(field.invalidCls);
           el.removeAttr('data-qclass');
           el.dom.qtip = undefined;
         }

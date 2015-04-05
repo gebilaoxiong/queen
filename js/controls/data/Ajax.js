@@ -5,7 +5,7 @@
  * @description
  */
 define(['data/Connection'], function(Connection) {
-	return new Connection({
-		autoAbort: false
-	});
+  return new Connection({
+    autoAbort: false
+  });
 })

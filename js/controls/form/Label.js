@@ -7,32 +7,32 @@
 
 define(['controls/BoxComponent'], function(BoxComponent) {
 
-	var Label = Q.Class.define(BoxComponent, {
+  var Label = Q.Class.define(BoxComponent, {
 
-		onRender: function(container, position) {
-			if (!this.el) {
-				this.el=document.createElement('Label');
-				this.el.id = this.getId();
-				this.el.innerHTML = this.text ? Q.String.escapeHtml(this.text) : (this.html || '');
+    onRender: function(container, position) {
+      if (!this.el) {
+        this.el = document.createElement('Label');
+        this.el.id = this.getId();
+        this.el.innerHTML = this.text ? Q.String.escapeHtml(this.text) : (this.html || '');
 
-				if (this.forId) {
-					this.e.attr('for', this.forId);
-				}
-			}
+        if (this.forId) {
+          this.e.attr('for', this.forId);
+        }
+      }
 
-			this.callParent(arguments);
-		},
+      this.callParent(arguments);
+    },
 
-		setText: function(text, encode) {
-			var prop = !(encode === false) ? 'text' : 'html';
-			this[prop] = t;
-			delete this[prop];
+    setText: function(text, encode) {
+      var prop = !(encode === false) ? 'text' : 'html';
+      this[prop] = t;
+      delete this[prop];
 
-			if (this.rendered) {
-				this.el.dom.innerHTML = encode !== false ? Q.String.escapeHtml(text) : text;
-			}
-		}
-	});
+      if (this.rendered) {
+        this.el.dom.innerHTML = encode !== false ? Q.String.escapeHtml(text) : text;
+      }
+    }
+  });
 
-	return Label;
+  return Label;
 });

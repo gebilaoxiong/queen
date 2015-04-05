@@ -1,130 +1,130 @@
 define(['dd/DD'], function(DD) {
 
-	var DDProxy = Q.Class.define(DD, {
+  var DDProxy = Q.Class.define(DD, {
 
-		init: function(id, sGroup, config) {
-			if (id) {
-				this.callParent(arguments);
-				this.initFrame();
-			}
-		},
+    init: function(id, sGroup, config) {
+      if (id) {
+        this.callParent(arguments);
+        this.initFrame();
+      }
+    },
 
-		
-		resizeFrame: true,
 
-		
-		centerFrame: false,
+    resizeFrame: true,
 
-		initFrame: function() {
-			this.createFrame();
-		},
 
-		createFrame: function() {
-			var self = this,
-				body = document.body;
+    centerFrame: false,
 
-			if (!body || !body.firstChild) {
-				setTimeout(function() {
-					self.createFrame();
-				},50);
-				return;
-			}
+    initFrame: function() {
+      this.createFrame();
+    },
 
-			var div = this.getDragEl();
+    createFrame: function() {
+      var self = this,
+        body = document.body;
 
-			if (!div) {
-				div = document.createElement('div');
-				div.id = this.dragElId;
-				var s = div.style;
+      if (!body || !body.firstChild) {
+        setTimeout(function() {
+          self.createFrame();
+        }, 50);
+        return;
+      }
 
-				s.position = 'absolute';
-				s.visibility = 'hidden';
-				s.cursor = 'move';
-				s.border = "2px solid #aaa";
-				s.zIndex = 999;
+      var div = this.getDragEl();
 
-				body.insertBefor(div, body.firstChild);
-			}
-		},
+      if (!div) {
+        div = document.createElement('div');
+        div.id = this.dragElId;
+        var s = div.style;
 
-		applyConfig: function() {
-			this.callParent(arguments);
+        s.position = 'absolute';
+        s.visibility = 'hidden';
+        s.cursor = 'move';
+        s.border = "2px solid #aaa";
+        s.zIndex = 999;
 
-			this.resizeFrame = (this.config.resizeFrame !== false);
-			this.centerFrame = (this.config.centerFrame);
-			this.setDragElId(this.config.dragElId || DDProxy.dragElId);
-		},
+        body.insertBefor(div, body.firstChild);
+      }
+    },
 
-		showFrame: function(iPageX, iPageY) {
-			var el = this.getEl(),
-				dragEl = this.getDragEl(),
-				s = dragEl.style;
+    applyConfig: function() {
+      this.callParent(arguments);
 
-			this._resizeProxy();
+      this.resizeFrame = (this.config.resizeFrame !== false);
+      this.centerFrame = (this.config.centerFrame);
+      this.setDragElId(this.config.dragElId || DDProxy.dragElId);
+    },
 
-			if (this.centerFrame) {
-				this.setDelta(Math.round(parseInt(s.width, 10) / 2),
-					Math.round(parseInt(s.height, 10) / 2));
-			}
-			
-			this.setDragElPos(iPageX, iPageY);
-			Q.get(dragEl).show();
-		},
+    showFrame: function(iPageX, iPageY) {
+      var el = this.getEl(),
+        dragEl = this.getDragEl(),
+        s = dragEl.style;
 
-		_resizeProxy: function() {
-			if (this.resizeFrame) {
-				var el = this.getEl(),
-					dragEl = Q.get(this.getDragEl());
+      this._resizeProxy();
 
-				dragEl.outerWidth(false, offsetWidth);
-				dragEl.outerHeight(false, el.offsetHeight);
-			}
-		},
+      if (this.centerFrame) {
+        this.setDelta(Math.round(parseInt(s.width, 10) / 2),
+          Math.round(parseInt(s.height, 10) / 2));
+      }
 
-		b4MouseDown: function(e) {
-			var x = e.pageX;
-			var y = e.pageY;
-			this.autoOffset(x, y);
-			this.setDragElPos(x, y);
-		},
+      this.setDragElPos(iPageX, iPageY);
+      Q.get(dragEl).show();
+    },
 
-		b4StartDrag: function(x, y) {
-			// show the drag frame
-			this.showFrame(x, y);
-		},
+    _resizeProxy: function() {
+      if (this.resizeFrame) {
+        var el = this.getEl(),
+          dragEl = Q.get(this.getDragEl());
 
-		b4EndDrag: function(e) {
-			Q.get(this.getDragEl()).hide();
-		},
+        dragEl.outerWidth(false, offsetWidth);
+        dragEl.outerHeight(false, el.offsetHeight);
+      }
+    },
 
-		endDrag: function(e) {
-			var lel = this.getEl(),
-				del = this.getDragEl();
+    b4MouseDown: function(e) {
+      var x = e.pageX;
+      var y = e.pageY;
+      this.autoOffset(x, y);
+      this.setDragElPos(x, y);
+    },
 
-			// Show the drag frame briefly so we can get its position
-			del.style.visibility = "";
+    b4StartDrag: function(x, y) {
+      // show the drag frame
+      this.showFrame(x, y);
+    },
 
-			this.beforeMove();
-			// Hide the linked element before the move to get around a Safari
-			// rendering bug.
-			lel.style.visibility = "hidden";
-			alert('待处理')
-			//Ext.dd.DDM.moveToEl(lel, del);
-			del.style.visibility = "hidden";
-			lel.style.visibility = "";
+    b4EndDrag: function(e) {
+      Q.get(this.getDragEl()).hide();
+    },
 
-			this.afterDrag();
-		},
+    endDrag: function(e) {
+      var lel = this.getEl(),
+        del = this.getDragEl();
 
-		beforeMove: Q.noop,
+      // Show the drag frame briefly so we can get its position
+      del.style.visibility = "";
 
-		afterDrag: Q.noop,
+      this.beforeMove();
+      // Hide the linked element before the move to get around a Safari
+      // rendering bug.
+      lel.style.visibility = "hidden";
+      alert('待处理')
+        //Ext.dd.DDM.moveToEl(lel, del);
+      del.style.visibility = "hidden";
+      lel.style.visibility = "";
 
-		toString: function() {
-			return ("DDProxy " + this.id);
-		}
+      this.afterDrag();
+    },
 
-	});
+    beforeMove: Q.noop,
 
-	return DDProxy;
+    afterDrag: Q.noop,
+
+    toString: function() {
+      return ("DDProxy " + this.id);
+    }
+
+  });
+
+  return DDProxy;
 });

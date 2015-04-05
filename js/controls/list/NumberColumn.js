@@ -5,19 +5,19 @@
  * @description
  */
 define(['list/Column', 'util/Template'], function(Column, Template) {
-	var NumberColumn;
+  var NumberColumn;
 
-	NumberColumn = Q.Class.define(Column, {
+  NumberColumn = Q.Class.define(Column, {
 
-		/*序列化格式*/
-		format: '0,000.00',
+    /*序列化格式*/
+    format: '0,000.00',
 
-		init: function(config) {
-			config.tpl = config.tpl || new Template('<%=Q.Number.format(' + config.dataIndex + ',' + (config.format || this.format) + ')%>');
+    init: function(config) {
+      config.tpl = config.tpl || new Template('<%=Q.Number.format(' + config.dataIndex + ',' + (config.format || this.format) + ')%>');
 
-			this.callParent(arguments);
-		}
-	});
+      this.callParent(arguments);
+    }
+  });
 
-	return NumberColumn;
+  return NumberColumn;
 });

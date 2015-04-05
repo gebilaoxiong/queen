@@ -1,25 +1,25 @@
 define(['controls/Editor'], function(Editor) {
 
-	var GridEditor = Q.Class.define(Editor, {
+  var GridEditor = Q.Class.define(Editor, {
 
-		type:'GridEditor',
-		
-		alignment: "tl-tl",
+    type: 'GridEditor',
 
-		autoSize: "width",
+    alignment: "tl-tl",
 
-		hideEl: false,
+    autoSize: "width",
 
-		cls: "x-small-editor x-grid-editor",
+    hideEl: false,
 
-		shim: false,
+    cls: "x-small-editor x-grid-editor",
 
-		init: function(field, config) {
-			this.callParent(arguments);
+    shim: false,
 
-			field.monitorTab = false;
-		}
-	});
+    init: function(field, config) {
+      this.callParent(arguments);
 
-	return GridEditor;
+      field.monitorTab = false;
+    }
+  });
+
+  return GridEditor;
 })

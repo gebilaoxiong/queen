@@ -154,7 +154,7 @@ define(['util/Observable'], function(Observable) {
 
   Direct.RemotingEvent = Q.Class.define(Direct.Event, {
     type: 'rpc',
-    
+
     getTransaction: function() {
       return this.transaction || Direct.getTransaction(this.tid);
     }

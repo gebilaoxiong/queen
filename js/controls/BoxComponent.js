@@ -1,6 +1,6 @@
 define(['controls/Component'], function(Component) {
 
-	/*
+  /*
 		抽象 具有尺寸的控件
 		@param (float) width
 		@param (float) height
@@ -12,283 +12,283 @@ define(['controls/Component'], function(Component) {
 			(bool) resizeEl 在调用setSize时控件真正设置高度的元素
 
 	*/
-	var BoxComponent = Q.Class.define(Component, {
+  var BoxComponent = Q.Class.define(Component, {
 
-		type: 'BoxComponent',
+    type: 'BoxComponent',
 
-		autoEl: 'div',
+    autoEl: 'div',
 
-		// afterRender 后为true 表示已渲染
-		boxReady: false,
+    // afterRender 后为true 表示已渲染
+    boxReady: false,
 
-		autoWidth: false,
+    autoWidth: false,
 
-		autoHeight: false,
+    autoHeight: false,
 
-		deferHeight: false,
+    deferHeight: false,
 
-		getSize: function() {
-			var el = this.getResizeEl();
+    getSize: function() {
+      var el = this.getResizeEl();
 
-			return {
-				width: el.outerWidth(true),
-				height: el.outerHeight(true)
-			};
-		},
+      return {
+        width: el.outerWidth(true),
+        height: el.outerHeight(true)
+      };
+    },
 
-		getBox: function(local) {
-			var pos = local ? this.getPosition() : this.getPagePosition(),
-				size = this.getSize();
+    getBox: function(local) {
+      var pos = local ? this.getPosition() : this.getPagePosition(),
+        size = this.getSize();
 
-			size.x = pos[0];
-			size.y = pos[1];
-			return size;
-		},
+      size.x = pos[0];
+      size.y = pos[1];
+      return size;
+    },
 
-		updateBox: function(box) {
-			this.setSize(box.width, box.height);
-			this.setPagePosition(box);
-			return this;
-		},
+    updateBox: function(box) {
+      this.setSize(box.width, box.height);
+      this.setPagePosition(box);
+      return this;
+    },
 
-		setSize: function(width, height) {
-			var adjustSize, adjustWidth, adjustHeight, resizeEl;
+    setSize: function(width, height) {
+      var adjustSize, adjustWidth, adjustHeight, resizeEl;
 
-			if (typeof width == 'object') {
-				height = width.height;
-				width = width.width;
-			}
+      if (typeof width == 'object') {
+        height = width.height;
+        width = width.width;
+      }
 
-			/*宽度 长度 最大值 最小值比较设定*/
-			if (Q.isDefined(width) && Q.isDefined(this.maxWidth) && width > this.maxWidth) {
-				width = this.maxWidth;
-			}
+      /*宽度 长度 最大值 最小值比较设定*/
+      if (Q.isDefined(width) && Q.isDefined(this.maxWidth) && width > this.maxWidth) {
+        width = this.maxWidth;
+      }
 
-			if (Q.isDefined(width) && Q.isDefined(this.minWidth) && width < this.minWidth) {
-				width = this.minWidth;
-			}
+      if (Q.isDefined(width) && Q.isDefined(this.minWidth) && width < this.minWidth) {
+        width = this.minWidth;
+      }
 
-			if (Q.isDefined(height) && Q.isDefined(this.maxHeight) && height > this.maxHeight) {
-				height = this.maxHeight;
-			}
+      if (Q.isDefined(height) && Q.isDefined(this.maxHeight) && height > this.maxHeight) {
+        height = this.maxHeight;
+      }
 
-			if (Q.isDefined(height) && Q.isDefined(this.minHeight) && height < this.minHeight) {
-				height = this.minHeight;
-			}
+      if (Q.isDefined(height) && Q.isDefined(this.minHeight) && height < this.minHeight) {
+        height = this.minHeight;
+      }
 
-			if (!this.boxReady) {
-				this.width = width;
-				this.height = height;
-				return this;
-			}
+      if (!this.boxReady) {
+        this.width = width;
+        this.height = height;
+        return this;
+      }
 
-			//如果width 和height没改变 返回
-			if (this.lastSize && this.lastSize.width == width && this.lastSize.height == height) {
-				return;
-			}
+      //如果width 和height没改变 返回
+      if (this.lastSize && this.lastSize.width == width && this.lastSize.height == height) {
+        return;
+      }
 
-			this.lastSize = {
-				width: width,
-				height: height
-			};
+      this.lastSize = {
+        width: width,
+        height: height
+      };
 
-			adjustSize = this.adjustSize(width, height),
-			adjustWidth = adjustSize.width,
-			adjustHeight = adjustSize.height;
+      adjustSize = this.adjustSize(width, height),
+        adjustWidth = adjustSize.width,
+        adjustHeight = adjustSize.height;
 
-			if (adjustWidth != undefined || adjustHeight != undefined) {
-				resizeEl = this.getResizeEl();
+      if (adjustWidth != undefined || adjustHeight != undefined) {
+        resizeEl = this.getResizeEl();
 
-				//deferHeight为true时  为控件自己计算高度
-				if (!this.deferHeight && adjustWidth !== undefined && adjustHeight !== undefined) {
+        //deferHeight为true时  为控件自己计算高度
+        if (!this.deferHeight && adjustWidth !== undefined && adjustHeight !== undefined) {
 
-					resizeEl.outerWidth(true, adjustWidth);
-					resizeEl.outerHeight(false, adjustHeight);
+          resizeEl.outerWidth(true, adjustWidth);
+          resizeEl.outerHeight(false, adjustHeight);
 
-				} else if (!this.deferHeight && adjustHeight !== undefined) {
+        } else if (!this.deferHeight && adjustHeight !== undefined) {
 
-					resizeEl.outerHeight(false, adjustHeight);
+          resizeEl.outerHeight(false, adjustHeight);
 
-				} else if (adjustWidth !== undefined) {
+        } else if (adjustWidth !== undefined) {
 
-					resizeEl.outerWidth(false, adjustWidth);
+          resizeEl.outerWidth(false, adjustWidth);
 
-				}
-				/*
+        }
+        /*
 					调用扩展方法
 					扩展方法包含计算子控件高度等
 				*/
-				this.onResize(adjustWidth, adjustHeight, width, height);
+        this.onResize(adjustWidth, adjustHeight, width, height);
 
-				//触发事件
-				this.fire('resize', this, adjustWidth, adjustHeight, width, height);
-			}
-		},
+        //触发事件
+        this.fire('resize', this, adjustWidth, adjustHeight, width, height);
+      }
+    },
 
-		/*调节尺寸 设置 autoWidth/Height 为auto*/
-		adjustSize: function(width, height) {
+    /*调节尺寸 设置 autoWidth/Height 为auto*/
+    adjustSize: function(width, height) {
 
-			if (this.autoWidth) {
-				width = 'auto';
-			}
+      if (this.autoWidth) {
+        width = 'auto';
+      }
 
-			if (this.autoHeight) {
-				height = 'auto';
-			}
+      if (this.autoHeight) {
+        height = 'auto';
+      }
 
-			return {
-				width: width,
-				height: height
-			};
-		},
+      return {
+        width: width,
+        height: height
+      };
+    },
 
-		getResizeEl: function() {
-			return this.resizeEl || this.el;
-		},
+    getResizeEl: function() {
+      return this.resizeEl || this.el;
+    },
 
-		onResize: Q.noop,
+    onResize: Q.noop,
 
-		/**
-		 * 设置overflow
-		 * @param {Boolean} scroll 溢出时是否显示滚动条
-		 */
-		setAutoScroll: function(scroll) {
-			if (this.rendered) {
-				this.getContentTarget().css('overflow', scroll ? 'auto' : '');
-			}
+    /**
+     * 设置overflow
+     * @param {Boolean} scroll 溢出时是否显示滚动条
+     */
+    setAutoScroll: function(scroll) {
+      if (this.rendered) {
+        this.getContentTarget().css('overflow', scroll ? 'auto' : '');
+      }
 
-			this.autoScroll = scroll;
-			return this;
-		},
+      this.autoScroll = scroll;
+      return this;
+    },
 
-		afterRender: function() {
-			var me=this;
-			
-			me.callParent(arguments);
-			me.boxReady = true;
+    afterRender: function() {
+      var me = this;
 
-			if (me.autoScroll != undefined) {
-				me.setAutoScroll(me.autoScroll);
-			}
+      me.callParent(arguments);
+      me.boxReady = true;
 
-			me.setSize(me.width, me.height);
+      if (me.autoScroll != undefined) {
+        me.setAutoScroll(me.autoScroll);
+      }
 
-			if(me.margin){
-				me.el.css('margin',me.margin);
-			}
+      me.setSize(me.width, me.height);
 
-			if (me.xy) {
-				me.setPosition(me.xy);
-			} else if (me.x || me.y) {
-				me.setPosition({
-					top: me.y,
-					left: me.x
-				});
-				delete me.y;
-				delete me.x;
-			} else if (me.pageXY) {
-				me.setPagePosition(me.pageXY);
-			}
-		},
+      if (me.margin) {
+        me.el.css('margin', me.margin);
+      }
 
-		setPosition: function(xy) {
-			var adj, el;
+      if (me.xy) {
+        me.setPosition(me.xy);
+      } else if (me.x || me.y) {
+        me.setPosition({
+          top: me.y,
+          left: me.x
+        });
+        delete me.y;
+        delete me.x;
+      } else if (me.pageXY) {
+        me.setPagePosition(me.pageXY);
+      }
+    },
 
-			this.xy = xy;
+    setPosition: function(xy) {
+      var adj, el;
 
-			if (!this.boxReady) {
-				return this;
-			}
+      this.xy = xy;
 
-			adj = this.adjustPosition(xy);
-			el = this.getPositionEl();
+      if (!this.boxReady) {
+        return this;
+      }
 
-			if (adj.left != undefined || adj.top != undefined) {
-				if (adj.left != undefined && adj.top != undefined) {
-					el.css(adj);
-				} else if (adj.left == undefined && adj.top != undefined) {
-					el.css('top', adj.top);
-				} else if (adj.top == undefined && adj.left != undefined) {
-					el.css('left', adj.left);
-				}
-				this.onPosition(adj.left, adj.top);
-				this.fire('move', this, adj);
-			}
-			return this;
-		},
+      adj = this.adjustPosition(xy);
+      el = this.getPositionEl();
 
-		getPosition: function() {
-			var el, ret;
+      if (adj.left != undefined || adj.top != undefined) {
+        if (adj.left != undefined && adj.top != undefined) {
+          el.css(adj);
+        } else if (adj.left == undefined && adj.top != undefined) {
+          el.css('top', adj.top);
+        } else if (adj.top == undefined && adj.left != undefined) {
+          el.css('left', adj.left);
+        }
+        this.onPosition(adj.left, adj.top);
+        this.fire('move', this, adj);
+      }
+      return this;
+    },
 
-			if (!this.rendered) {
-				ret = [this.x, this.y];
-			} else {
-				el = this.getPositionEl();
-				ret = [
-					parseInt(el.css('left'), 10),
-					parseInt(el.css('top'), 10)
-				];
-			}
+    getPosition: function() {
+      var el, ret;
 
-			return ret;
+      if (!this.rendered) {
+        ret = [this.x, this.y];
+      } else {
+        el = this.getPositionEl();
+        ret = [
+          parseInt(el.css('left'), 10),
+          parseInt(el.css('top'), 10)
+        ];
+      }
 
-		},
+      return ret;
 
-		getPagePosition: function() {
-			var positionElOffset = this.getPositionEl().offset();
+    },
 
-			return {
-				top: positionElOffset.top,
-				left: positionElOffset.left
-			};
-		},
+    getPagePosition: function() {
+      var positionElOffset = this.getPositionEl().offset();
 
-		setPagePosition: function(xy) {
-			var me = this,
-				p;
+      return {
+        top: positionElOffset.top,
+        left: positionElOffset.left
+      };
+    },
 
-			me.pageXY = xy;
+    setPagePosition: function(xy) {
+      var me = this,
+        p;
 
-			if (!me.boxReady) {
-				return;
-			}
+      me.pageXY = xy;
 
-			if (xy.top === undefined || xy.left === undefined) {
-				return;
-			}
+      if (!me.boxReady) {
+        return;
+      }
 
-			p = me.getPositionEl().translatePoints(xy.left, xy.top);
-			me.setPosition(p);
+      if (xy.top === undefined || xy.left === undefined) {
+        return;
+      }
 
-			me.fire('move', me, xy);
-		},
+      p = me.getPositionEl().translatePoints(xy.left, xy.top);
+      me.setPosition(p);
 
-		adjustPosition: function(xy) {
-			return xy;
-		},
+      me.fire('move', me, xy);
+    },
 
-		onPosition: Q.noop
-	});
+    adjustPosition: function(xy) {
+      return xy;
+    },
+
+    onPosition: Q.noop
+  });
 
 
-	Q.each({
-		height: 'Height',
-		width: 'Width'
-	}, function(key, name) {
+  Q.each({
+    height: 'Height',
+    width: 'Width'
+  }, function(key, name) {
 
-		BoxComponent.prototype['get' + name] = function() {
-			return this.getResizeEl()['outer' + name](false);
-		};
+    BoxComponent.prototype['get' + name] = function() {
+      return this.getResizeEl()['outer' + name](false);
+    };
 
-		BoxComponent.prototype['set' + name] = function(value) {
-			if (key == 'height') {
-				this.setSize(undefined, value);
-			} else {
-				this.setSize(value);
-			}
-			return this;
-		}
-	});
+    BoxComponent.prototype['set' + name] = function(value) {
+      if (key == 'height') {
+        this.setSize(undefined, value);
+      } else {
+        this.setSize(value);
+      }
+      return this;
+    }
+  });
 
-	return BoxComponent;
+  return BoxComponent;
 })

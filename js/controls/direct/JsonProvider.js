@@ -35,7 +35,7 @@ define([
         events, event, i, len;
 
       try {
-        
+
         data = this.parseResponse(xhr);
 
       } catch (e) {

@@ -1,31 +1,31 @@
-define(['form/Field'],function(field){
+define(['form/Field'], function(field) {
 
-	var Hidden=Q.Class.define(field,{
+  var Hidden = Q.Class.define(field, {
 
-		type:'hidden',
+    type: 'hidden',
 
-		inputType:'hidden',
+    inputType: 'hidden',
 
-		shouldLayout:false,
+    shouldLayout: false,
 
-		initValue:function(){
-			this.orgValue=this.getValue();
-		},
+    initValue: function() {
+      this.orgValue = this.getValue();
+    },
 
-		setSize:Q.noop,
+    setSize: Q.noop,
 
-		setWidth:Q.noop,
+    setWidth: Q.noop,
 
-		setHeight:Q.noop,
+    setHeight: Q.noop,
 
-		setPosition:Q.noop,
+    setPosition: Q.noop,
 
-		setPagePosition:Q.noop,
+    setPagePosition: Q.noop,
 
-		markInvalid:Q.noop,
+    markInvalid: Q.noop,
 
-		clearInvalid:Q.noop
-	});
+    clearInvalid: Q.noop
+  });
 
-	return Hidden;
+  return Hidden;
 });

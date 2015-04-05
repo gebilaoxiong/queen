@@ -1,70 +1,70 @@
 define(function() {
 
-	var cache = {};
+  var cache = {};
 
-	function register(storeId, store) {
+  function register(storeId, store) {
 
-		if (store == undefined) {
-			store = storeId;
-			storeId = store.storeId;
-		} else {
-			store.storeId = storeId;
-		}
+    if (store == undefined) {
+      store = storeId;
+      storeId = store.storeId;
+    } else {
+      store.storeId = storeId;
+    }
 
-		if (store == undefined) {
-			return;
-		}
+    if (store == undefined) {
+      return;
+    }
 
-		cache[storeId] = store;
-	}
+    cache[storeId] = store;
+  }
 
-	function unregister(store) {
-		var storeId;
-		if (Q.isString(store)) {
-			storeId = store;
-		} else if (store && store.storeId != undefined) {
-			storeId = store.storeId
-		}
+  function unregister(store) {
+    var storeId;
+    if (Q.isString(store)) {
+      storeId = store;
+    } else if (store && store.storeId != undefined) {
+      storeId = store.storeId
+    }
 
-		if (storeId != undefined) {
-			cache[storeId] = null;
-		}
-	}
+    if (storeId != undefined) {
+      cache[storeId] = null;
+    }
+  }
 
-	function get(id) {
-		if (!id) {
-			return;
-		}
+  function get(id) {
+    if (!id) {
+      return;
+    }
 
-		if (id.isXType && id.isXType('Store')) {
-			return id;
-		}
+    if (id.isXType && id.isXType('Store')) {
+      return id;
+    }
 
-		return cache[id];
-	}
+    return cache[id];
+  }
 
-	/*创建一个控件实例*/
-	function create(config) {
-		var xtype = config.xtype;
-		return new xtype(config);
-	}
+  /*创建一个控件实例*/
+  function create(config) {
+    var xtype = config.xtype;
+    return new xtype(config);
+  }
 
-	function lookup(id) {
-		var ret;
+  function lookup(id) {
+    var ret;
 
-		if (Q.isObject(id)) {
-			ret = id.isXType && id.isXType('Store') ? id : create(id);
-		} else {
-			ret = get(id);
-		}
-		return ret;
-	}
+    if (Q.isObject(id)) {
+      ret = id.isXType && id.isXType('Store') ? id : create(id);
+    } else {
+      ret = get(id);
+    }
+    return ret;
+  }
 
-	return {
-		register: register,
-		unregister: unregister,
-		get: get,
-		create: create,
-		lookup: lookup
-	}
+  return {
+    register: register,
+    unregister: unregister,
+    get: get,
+    create: create,
+    lookup: lookup
+  }
 })
