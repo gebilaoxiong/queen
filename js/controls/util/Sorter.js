@@ -1,79 +1,79 @@
 define(function() {
 
-	var Sorter = Q.Class.define(Q.Abstract, {
-		
-		property:undefined,
+  var Sorter = Q.Class.define(Q.Abstract, {
 
-		direction: 'ASC',
+    property: undefined,
 
-		init: function(config) {
-			var me = this;
+    direction: 'ASC',
 
-			Q.extend(me, config);
+    init: function(config) {
+      var me = this;
 
-			if (me.property === undefined && me.sorterFn === undefined) {
-				throw "A Sorter requires either a property or a sorter function";
-			}
+      Q.extend(me, config);
 
-			me.updateSortFunction();
-		},
+      if (me.property === undefined && me.sorterFn === undefined) {
+        throw "A Sorter requires either a property or a sorter function";
+      }
 
-		/*修改当前排序函数*/
-		updateSortFunction: function(fn) {
-			var me = this;
-			fn = fn || me.sorterFn || me.defaultSorterFn;
-			me.sort = me.createSortFunction(fn);
-		},
+      me.updateSortFunction();
+    },
 
-		defaultSorterFn: function(left, right) {
-			var me = this,
-				transform = me.transform;
+    /*修改当前排序函数*/
+    updateSortFunction: function(fn) {
+      var me = this;
+      fn = fn || me.sorterFn || me.defaultSorterFn;
+      me.sort = me.createSortFunction(fn);
+    },
 
-			left = me.getRoot(left)[me.property];
-			right = me.getRoot(right)[me.property];
+    defaultSorterFn: function(left, right) {
+      var me = this,
+        transform = me.transform;
 
-			if (transform) {
-				left = transform(left, me.format);
-				right = transform(right, me.format);
-			}
+      left = me.getRoot(left)[me.property];
+      right = me.getRoot(right)[me.property];
 
-			return left > right ? 1 : (left < right ? -1 : 0);
-		},
+      if (transform) {
+        left = transform(left, me.format);
+        right = transform(right, me.format);
+      }
 
-		getRoot: function(item) {
-			return this.root === undefined ? item : item[this.root];
-		},
+      return left > right ? 1 : (left < right ? -1 : 0);
+    },
 
-		setDirection: function(direction) {
-			var me = this;
-			me.direction = direction ? direction.toUpperCase() : direction;
-			me.updateSortFunction();
-		},
+    getRoot: function(item) {
+      return this.root === undefined ? item : item[this.root];
+    },
 
-		toggle: function() {
-			var me = this;
-			me.direction = me.direction == "ASC" ? "DESC" : "ASC";
-			me.updateSortFunction();
-		},
+    setDirection: function(direction) {
+      var me = this;
+      me.direction = direction ? direction.toUpperCase() : direction;
+      me.updateSortFunction();
+    },
 
-		createSortFunction: function(sorterFn) {
-			var me = this,
-				direction = me.direction || 'ASC',
-				modifier = direction.toUpperCase() == "DESC" ? -1 : 1;
+    toggle: function() {
+      var me = this;
+      me.direction = me.direction == "ASC" ? "DESC" : "ASC";
+      me.updateSortFunction();
+    },
 
-			return function(left, right) {
-				return modifier * sorterFn.call(me, left, right);
-			};
-		},
+    createSortFunction: function(sorterFn) {
+      var me = this,
+        direction = me.direction || 'ASC',
+        modifier = direction.toUpperCase() == "DESC" ? -1 : 1;
 
-		toJson: function() {
-			return {
-				root: this.root,
-				property: this.property,
-				direction: this.direction
-			};
-		}
-	});
+      return function(left, right) {
+        return modifier * sorterFn.call(me, left, right);
+      };
+    },
 
-	return Sorter;
+    toJson: function() {
+      return {
+        root: this.root,
+        property: this.property,
+        direction: this.direction
+      };
+    }
+  });
+
+  return Sorter;
 })
