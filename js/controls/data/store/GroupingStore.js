@@ -5,7 +5,7 @@
  * @description
  */
 define([
-  'data/Store'
+  'data/store/Store'
 ], function(Store) {
 
   var GroupingStore;

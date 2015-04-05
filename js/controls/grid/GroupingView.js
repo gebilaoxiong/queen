@@ -575,7 +575,7 @@ define([
 
         //迭代所有row
         group = group.childNodes;
-        for (j = 0, jlen = group.length; j < jlen) {
+        for (j = 0, jlen = group.length; j < jlen; j++) {
           rows.push(group[j]);
         }
 
@@ -624,13 +624,13 @@ define([
       me.updateGroupWidths();
     },
 
-    onLayout:function(){
-      var me=this;
+    onLayout: function() {
+      var me = this;
 
       me.updateGroupWidths();
     },
 
-    onBeforeRowSelect:function(selectionModel,rowIndex){
+    onBeforeRowSelect: function(selectionModel, rowIndex) {
       this.toggleRowIndex(rowIndex, true);
     }
   });
