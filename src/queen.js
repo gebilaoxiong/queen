@@ -1,8 +1,6 @@
 /**
- *
  * @authors 熊洋 (xywindows@gmail.com)
  * @description Queen核心 版本号0.1Bate
- *
  */
 + function() {
 
