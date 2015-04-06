@@ -11,14 +11,14 @@ module.exports = function(grunt) {
   grunt.initConfig({
     moduledir: {
       build: {
-        src: ['js/controls/**/*.js'],
+        src: ['src/controls/**/*.js'],
 
-        dest: "js",
+        dest: "src",
 
         options: {
           moduleName: 'controls',
           baseUrl: "controls",
-          rootDir: "js",
+          rootDir: "src",
           paths: {
             /*----------基础控件----------*/
             'dd': 'controls/dd',
@@ -43,9 +43,9 @@ module.exports = function(grunt) {
 
           name: "controls",
 
-          baseUrl: 'js',
+          baseUrl: 'src',
 
-          mainConfigFile: "js/build.js",
+          mainConfigFile: "src/build.js",
 
           out: 'dest/controls.min.js'
         }
