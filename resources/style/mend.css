@@ -1,0 +1,708 @@
+.x-nav-panel{
+  background: url('images/bottom.png') repeat-x left bottom;
+}
+
+/*StripWrap背景色*/
+.x-nav-panel-header .x-tab-strip-wrap{
+  background-color:#333;
+  border-color:#000;
+  padding:0 0 0 5px;
+  height: 29px;
+}
+
+/*标签样式*/
+.x-nav-panel-header .x-tab-strip{
+  line-height: 26px;
+  font-size: 13px;
+  color:#CCC;
+  border-top: 2px solid #2d2d2d;
+  border-bottom: none;
+  padding:0 10px 0;
+}
+
+/*标签hover*/
+.x-nav-panel-header .x-tab-strip-over{
+  background: #4C4C4C;
+}
+.x-nav-panel-header .x-tab-strip-close{
+  visibility: hidden;
+}
+.x-nav-panel-header .x-tab-strip-over .x-tab-strip-close{
+  visibility: visible;
+}
+
+/*标签激活*/
+.x-nav-panel-header .x-tab-strip-active{
+  color:#fff;
+  border-color: #4387fd;
+}
+
+.x-nav-panel-header .x-tab-scroller-left{
+  background-image: url('images/tab_left_white.png');
+}
+.x-nav-panel-header .x-tab-scroller-right{
+  background-image: url('images/tab_right_white.png');
+}
+
+.x-nav-panel-header .x-tab-strip-closable{
+  padding-right: 18px;
+}
+
+/*标签关闭按钮*/
+.x-nav-panel-header .x-tab-strip-tool{
+  top:7px;
+  right:5px;
+  background-image:url('images/nav-close.gif');
+}
+/*不隐藏*/
+.x-nav-panel-header .x-tab-strip-closable  .x-tab-strip-tool{
+  display: inline-block;
+  *display: inline;
+  *zoom:1;
+}
+/*正常状态灰色底色*/
+.x-nav-panel-header .x-tab-strip-close:hover{
+  background-color: #aaa;
+}
+/*激活状态*/
+.x-nav-panel-header .x-tab-strip-active .x-tab-strip-close:hover{
+  background-image:url('images/tab-close.gif');
+  background-color: #fff;
+}
+
+/*功能区*/
+.x-nav-panel-actions{
+  height: 100%;
+  float: right;
+  padding:0 5px 0 0;
+  margin:0 0 0 36px;
+  position: relative;
+  bottom: -1px;
+}
+
+/*动作按钮*/
+.x-actions{
+  margin: 0;
+  padding:0;
+  font-size: 13px;
+  display: inline-block;
+  *display: inline;
+  *zoom:1;
+}
+
+.x-action{
+  display: inline-block;
+  *display: inline;
+  *zoom:1;
+  overflow: hidden;
+  line-height: 27px;
+  padding: 0;
+  vertical-align: top;
+}
+
+.x-action-inner{
+  display: block;
+  padding: 0 5px;
+  z-index: 1000;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}
+
+.x-action a,
+.x-action a:hover{
+  text-decoration: none;
+  outline: none;
+  color:#ccc;
+}
+
+.x-action-icon{
+  margin:1px 0 4px;
+}
+
+.x-action-over{
+  background: #4C4C4C;
+}
+
+.x-action-text{
+  display: block;
+  z-index: 1000;
+}
+
+/*垫子*/
+.x-action-pad{
+  display: block;
+  border-top: 2px solid transparent;
+}
+
+/*消息*/
+.x-text-action-wrap{
+  position: relative;
+  zoom: 1;
+}
+.x-text-action-wrap .x-action-inner{
+  display: block;
+  padding: 0 5px;
+  overflow: hidden;
+  z-index: 1000;
+  text-align: center;
+}
+
+.x-text-action-wrap .x-action-pad{
+  position: absolute;
+  overflow: hidden;
+  background: #999;
+  border-radius: 1px;
+  left:6px;
+  top: 4px;
+  *top:2px;
+  right:6px;
+  height: 20px;
+}
+
+.x-text-action-wrap .x-action-text{
+  font-size: 12px;
+  font-weight: bold;
+  position: relative;
+  padding:0 7px;
+  word-spacing: nowrap;
+}
+
+
+.x-action-iconCls{
+  display: block;
+  height: 17px;
+  width: 17px;
+  margin:2px 0 6px;
+}
+
+.x-action .x-action-text{
+  cursor: default;
+}
+
+.x-action-menu-wrap .x-action-text{
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.x-action-menu-active{
+  background: #fff;
+}
+
+.x-action-menu-active .x-action-inner{
+  border-color: #bebebe;
+}
+
+.x-action-config{
+  background: url('images/config.png') no-repeat 0 0;
+}
+.x-action-menu-active .x-action-config{
+  background-position: -6px -22px;
+}
+
+/*+号按钮*/
+.x-nav-panel-menu-btn{
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 2;
+  opacity: 0.9;
+  top:0;
+  left:0;
+  background: url('images/glyphicons-halflings-white.png') no-repeat -405px -93px;
+}
+
+
+/*------------------------------------页面--------------------------*/
+.x-page{
+  position: relative;
+  background: none;
+}
+
+/*viewport遮罩-加载视图*/
+.x-viewport-load-mask{
+  background:#f9f9f9 url('images/loading-page.gif') no-repeat center center;
+  opacity: 1;
+  filter:alpha(opacity=100);
+}
+/*viewport遮罩-处理操作*/
+.x-viewport-process-mask{
+  background:#fff url('images/loading-partial.gif') no-repeat center center;
+  opacity: .5;
+  filter:alpha(opacity=50);
+}
+
+/*--------------------------------view----------------------------*/
+.x-view{
+  position: relative;
+  background: none;
+}
+/*header*/
+.x-view-header-text{
+  display: inline-block;
+  *display: inline;
+  zoom:1;
+  cursor: default;
+  vertical-align: middle;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.x-view-header{
+  padding: 10px 0 8px 20px;
+}
+
+.x-view-footer .x-panel-fbar,
+.x-view-tbar .x-toolbar{
+  padding: 0 20px 9px;
+}
+
+
+.x-view-body{
+  position: relative;
+  zoom: 1;
+  cursor: default;
+  border-top: 1px solid #ccc;
+  border-color:rgba(0,0,0,.1);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+
+.x-view-tbar .x-toolbar {
+  border:0;
+}
+
+/*-----------------暗色调view---------------------*/
+.x-dark-view{
+  background-color: rgba(35,35,35,.8);
+  background-image: url('images/black-80.png')\9;
+}
+
+.x-dark-view .x-view-body{
+  border-color: #333;
+}
+
+.x-dark-view .x-view-header-text{
+  color:#999;
+}
+
+/*-------------------暗色调下控件的样式------------------*/
+/*tree*/
+.x-dark-view .x-tree-node a span{
+  color:#F5F5F5;
+}
+.x-dark-view .x-tree-node .x-tree-selected a span{
+  font-weight: bold;
+  color:#6699DD;
+}
+.x-dark-view .x-tree-node .x-tree-selected,
+.x-dark-view .x-tree-over{
+  background: #555;
+}
+
+/*--------------------------------面板扩展--------------------*/
+.x-panel-no-background{
+  background: none;
+}
+/*悬浮状态下背景色为白色*/
+.x-panel-floating{
+  background-color: #fff;
+}
+
+/*------------------ 菜单页面--------------------*/
+.x-menu-tree{
+  padding: 10px 0 0 0;
+  border-right: 1px solid #393939;
+  border-color:rgba(0,0,0,.2);
+  box-shadow: -1px 0 0 rgba(255, 255, 255, 0.1) inset;
+}
+.x-menu-tree .x-panel-body{
+  overflow: auto;
+}
+
+.x-menu-tree .x-tree-node-el{
+  padding: 0 0 0 15px;
+  margin:1px 0;
+}
+.x-menu-tree .x-tree-node-anchor{
+  line-height: 25px;
+}
+
+
+/*列表*/
+.x-nav-menu-list{
+  padding:15px;
+  overflow: auto;
+}
+
+.x-nav-menu-list .x-item{
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  line-height: 20px;
+}
+
+.x-menu-title{
+  color: #69D;
+  font-weight: bold;
+  margin:0 0 2px;
+}
+
+.x-nav-menu-list dd{
+  margin: 0 20px 0 0;
+  line-height: 22px;
+}
+.x-menu-link a{
+  color:#F5F5F5;
+  display: block;
+  padding: 0 5px;
+  text-decoration: none;
+  border-radius: 3px;
+}
+.x-menu-link a:hover{
+  background: #666;
+}
+/*布局*/
+.x-menu-layout-ct{
+  position: relative;
+  zoom: 1;
+}
+.x-menu-layout-item{
+  position: absolute;
+  transition: top 300ms ease,left 300ms ease-in-out;
+}
+/*copyright*/
+.x-menu-footer{
+  border-top: 1px solid #393939;
+  border-color:rgba(0,0,0,.2);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+}
+.x-menu-footer-inner{
+  padding:5px 0;
+  text-align: center;
+  color:#eee;
+}
+
+/*--------------------------布局扩展--------------------*/
+/*宽度自适应布局*/
+.x-fitWidth-layout-ct{
+  overflow-y:auto;
+  overflow-x: hidden;
+  position: relative;
+  zoom:1;
+  top:0;
+  left:0;
+}
+.x-fitWidth-item{
+  display: block;
+}
+/*-----------------------遮罩----------------------*/
+.x-el-mask-msg {
+  z-index: 20001;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.x-el-mask-msg div {
+  padding: 0 10px;
+  color: #222;
+  font-weight: bold;
+  border:1px solid #f0c36d;
+  background-color: #f9edbe;
+  border-radius: 2px;
+}
+/*---------------------表单扩展---------------------*/
+/*label单元格*/
+.x-label-cell{
+  width:90px;
+  text-align: right;
+  padding:6px 5px 0;
+  vertical-align: text-top;
+}
+.x-label-cell label{
+  display: inline-block;
+  *display: inline;
+  *zoom:1;
+  font-size: 13px;
+}
+/*用户输入单元格*/
+.x-input-cell{
+  width: 230px;
+  vertical-align: top;
+}
+
+.x-label-cell,
+.x-input-cell{
+  padding-bottom: 5px;
+}
+
+
+
+/*-------------------grid扩展-------------------*/
+.x-link-column-text{
+  text-decoration: underline;
+}
+
+.x-link-column-text:hover{
+  text-decoration: none;
+}
+
+
+/*----------------------过滤面板------------------------*/
+.x-filter-panel{
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  overflow: visible;
+  background: none;
+  border:none;
+  z-index: 100;
+}
+.x-filter-body{
+  overflow: visible;
+  padding-top: 10px;
+}
+
+.x-search-btn{
+  margin:0 8px;
+  padding:3px 18px;
+  border-color:#4285f4;
+  background: #4285f4;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4387fd), to(#4683ea));
+  background-image: -webkit-linear-gradient(#4387fd, #4683ea);
+  background-image: -moz-linear-gradient(#4387fd, #4683ea);
+  background-image: -o-linear-gradient(#4387fd, #4683ea);
+  background-image: linear-gradient(#4387fd, #4683ea);
+}
+
+.x-search-btn .x-btn-text{
+  color: #fff;
+}
+
+.x-filter-list{
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  background: none;
+  border: none;
+  height: 36px;
+  position: relative;
+  z-index: 100;
+  vertical-align: middle;
+}
+
+/*折叠*/
+.x-filter-collapsed{
+  overflow: hidden;
+}
+
+.x-filter-inner{
+  padding: 2px 0 30px 0;
+  background:#fbfbfb;
+  border: 1px solid #CCC;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+  position: relative;
+  border-radius: 2px;
+  top:-1px;
+  left: -1px;
+  zoom: 1;
+}
+
+.x-filter-collapsed .x-filter-inner{
+  background: none;
+  border-color: #f5f5f5;
+  box-shadow: none;
+}
+
+.x-filter-item{
+  padding:4px 8px;
+}
+
+/*下拉框触发按钮*/
+.x-filter-item .x-form-arrow-trigger{
+  border-left: 1px solid #ddd;
+}
+
+/*过滤字段*/
+.x-filter-filed{
+  position:relative;
+  float:left;
+}
+
+/*条件控件容器*/
+.x-filter-editor{
+  float: left;
+  width: 100%;
+}
+
+.x-filter-editor-inner{
+  padding-right: 25px;
+}
+
+
+.x-filter-tools{
+  position: relative;
+  float: right;
+  margin-left: -25px;
+  width: 25px;
+}
+
+.x-filter-tools .x-tool{
+  margin-top: 6px;
+}
+
+/*添加条件*/
+.x-filter-add{
+  position: absolute;
+  display: inline-block;
+  *direction:inline;
+  *zoom:1;
+  bottom: 8px;
+  *bottom: 5px;
+  left:8px;
+  font-size: 12px;
+  color:#333;
+  cursor: pointer;
+}
+.x-filter-add .x-tool{
+  float: none;
+  margin: 0;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.x-filter-text{
+  vertical-align: middle;
+  padding-right: 12px;
+  background: url('images/arrow_down.png') no-repeat right center;
+}
+
+/*展开按钮*/
+.x-filter-expand-btn{
+  position: absolute;
+  display: inline-block;
+  *display: inline;
+  *zoom:1;
+  width: 18px;
+  height: 18px;
+  top:8px;
+  right:7px;
+  cursor: default;
+  border:1px solid #fff;
+  border-radius: 2px;
+  background: url('images/expand-btn.png') no-repeat 0 0;
+}
+
+.x-filter-collapsed .x-filter-expand-btn{
+  background-position: -16px 0;
+}
+
+.x-filter-expand-btn:hover{
+  border-color:#ddd;
+  background-color: #fff;
+}
+/*-------------------------类别树---------------------------------*/
+.x-category-tree .x-tree-node-anchor{
+  line-height: 25px;
+}
+.x-category-tree .x-tree-node-anchor{
+  padding-left: 2px;
+}
+.x-category-tree .x-tree-node-el{
+  padding-left: 5px;
+}
+
+.x-category-tree .x-tree-node-el{
+  background-color: #EEE;
+}
+.x-category-tree .x-tree-node-leaf{
+  background-color: #f7f7f7;
+  background-color:rgba(243,243,243,.85);
+}
+/*over*/
+.x-category-tree .x-tree-over{
+  background: #f3f3f3;
+}
+/*选中*/
+.x-category-tree .x-tree-node .x-tree-selected{
+  background-color: #f1f1f1;
+}
+/*-------------------------------树--------------------------------*/
+.x-tree-node-icon{
+  display: none;
+}
+.x-tree-node-el{
+  border-left:3px solid transparent;
+}
+.x-tree-selected{
+  border-color:#4285f4;
+}
+
+.x-tree-selected .x-tree-node-anchor span{
+  color:#4285F4;
+  font-weight: bold;
+}
+
+/*-------------------------介于尺寸问题重写工具栏样式-----------------*/
+.x-panel-tbar{
+  border-color: #DDD;
+  background: #f1f1f1;
+}
+.x-panel-tbar .x-toolbar{
+  padding-top: 5px;
+  padding-bottom: 2px;
+  background: none;
+}
+
+.x-panel-tbar .x-btn{
+  padding:1px 2px;
+  border:none;
+  background: #f1f1f1;
+  border:1px solid #f5f5f5;
+}
+
+.x-panel-tbar .x-btn .x-btn-text{
+  font-weight: normal;
+}
+
+.x-panel-tbar .x-btn-default-over{
+  border-color:#ddd;
+  background: #eee;
+}
+
+.x-panel-tbar .x-btn-default-click{
+  background: #ddd;
+}   
+
+/*
+.x-border-panel .x-panel-footer{
+  background: none;
+}*/
+
+
+/*triggerField*/
+.x-form-trigger-search{
+  background-image: url('images/search-trigger-rtl.png');
+}
+
+
+/*标题控件*/
+.x-caption{
+  font-size: 12px;
+  border-bottom: 2px solid #9C9C9C;
+  margin-top: 0;
+}
+
+.x-caption-text{
+  background: #9c9c9c;
+  *display: inline;
+  *zoom:1;
+  display: inline-block;
+  padding:0 15px;
+  color:#fff;
+  padding-top: 2px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
