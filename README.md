@@ -7,7 +7,6 @@ Queen
 感谢JQuery和EXT的作者，为这个世界贡献的光和热。
 
 
-
 “驾驭浏览器世界中的风火雷电。”
 
 Queen的核心部分参考了JQuery 1.83的代码(Sizzle、Cache、Event、DOM操作、浏览器特性探测)
