@@ -1,30 +1,34 @@
 Queen
 ===================================
-
-
+> 
+> 
 站在巨人的肩上
 -----------------------------------
 感谢JQuery和EXT的作者，为这个世界贡献的光和热。
-
-
-
+> 
+> 
+> 
 “驾驭浏览器世界中的风火雷电。”
-
+> 
 Queen的核心部分参考了JQuery 1.83的代码(Sizzle、Cache、Event、DOM操作、浏览器特性探测)
-
+> 
 “我们有了一颗能够驾驭浏览器的核心，但是没有控件都如何驾驭业务？”
-
+> 
 Queen控件库共有108个模块，移植于EXT3.4版本。并参考4.X版本修复了一些当前版本天生残疾的地方，完全不需要任何第三方控件
-
-
+> 
+> 
 ![github](https://github.com/gebilaoxiong/Queen/blob/master/welcome/img1.png "github") 
-![github](https://github.com/gebilaoxiong/Queen/blob/master/welcome/img2.png "github") 
+> 
+![github](https://github.com/gebilaoxiong/Queen/blob/master/welcome/img2.png "github")
+>  
 ![github](https://github.com/gebilaoxiong/Queen/blob/master/welcome/img3.png "github") 
 
-
-
-
-
+> 
+> 
+> 
+> 
+> 
+> 
 一些疑问
 -----------------------------------
 1."Ext太丑了,能变漂亮点吗？"
